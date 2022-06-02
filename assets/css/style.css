@@ -1,0 +1,8 @@
+/* Universal selectors first */
+* {
+    background-color: bisque;
+}
+/* Element selectors */
+header {
+    color:blue;
+}
