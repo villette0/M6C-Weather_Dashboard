@@ -1,10 +1,10 @@
 /* Color variables */
 :root {
-    --primary: #ccdad1;
-    --secondary: #9caea9;
-    --tertiary: #788585;
-    --light-dark: #6f6866;
-    --dark: #38302e;
+    --primary: #fafefb;
+    --secondary: #34dbac;
+    --darkblue: #31467a;
+    ---gray: #949393;
+    --blue: #2164ea;
     --border-radius: 0.3rem;
 }
 
@@ -18,7 +18,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'IBM Plex Sans', sans-serif;
-    color: var(--dark);
+    color: var(--blue);
     line-height: 1.5;
     font-size: 16px;
 }
@@ -31,7 +31,7 @@ h5,
 h6 {
     font-weight: 700;
     margin: 0;
-    color: var(--dark);
+    color: var(--blue);
     line-height: 1.25;
 }
 
@@ -42,6 +42,10 @@ main {
 
 p {
     font-size: 1.2rem;
+}
+
+.site-description {
+    padding-top: 20px;
 }
 
 .btn {
@@ -55,18 +59,18 @@ p {
     color: var(--primary);
     border: none;
     outline: none;
-    background-color: var(--light-dark);
+    background-color: var(---gray);
 
     /* The button will appear to be pressed on hover by translating its position and shrinking its box-shadow */
-    box-shadow: 3px 3px var(--dark);
+    box-shadow: 3px 3px var(--blue);
     transform: translate(-1px, -1px);
 }
 
 .btn:hover {
     color: var(--primary);
-    background-color: var(--tertiary);
+    background-color: var(--darkblue);
     transform: translate(0, 0);
-    box-shadow: 2px 2px var(--dark);
+    box-shadow: 2px 2px var(--blue);
 }
 
 .btn-inline {
@@ -78,7 +82,7 @@ p {
     color: var(--primary);
     border: none;
     outline: none;
-    background-color: var(--light-dark);
+    background-color: var(---gray);
     box-shadow: 3px 3px var(--secondary);
     transform: translate(-1px, -1px);
     display: inline-block;
@@ -91,14 +95,14 @@ p {
 
 .btn-back:hover {
     color: var(--primary);
-    background-color: var(--tertiary);
+    background-color: var(--darkblue);
     transform: translate(0, 0);
-    box-shadow: 2px 2px var(--dark);
+    box-shadow: 2px 2px var(--blue);
 }
 
 .hero {
     padding: 3% 4%;
-    background-color: var(--dark);
+    background: linear-gradient(to right, #0099ff 0%, #000099 100%);
     color: var(--primary);
 }
 
@@ -109,11 +113,11 @@ p {
 .app-title {
     font-size: 3rem;
     background-color: var(--primary);
-    color: var(--dark);
+    color: var(--blue);
     padding: 0 10px;
     display: inline-block;
     border-radius: var(--border-radius);
-    box-shadow: 6px 5px var(--light-dark);
+    box-shadow: 6px 5px var(---gray);
 }
 
 .list-group {
@@ -125,13 +129,13 @@ p {
     margin-bottom: 10px;
     padding: 1.5%;
     border-radius: var(--border-radius);
-    background-color: var(--light-dark);
+    background-color: var(---gray);
     color: var(--primary);
     text-decoration: none;
 }
 
 .list-item:hover {
-    background-color: var(--dark);
+    background-color: var(--blue);
 }
 
 .status-icon {
@@ -152,13 +156,13 @@ p {
 /* CARDS */
 .card {
     margin: 0 0 20px 0;
-    border: 3px solid var(--dark);
+    border: 3px solid var(--blue);
     border-radius: var(--border-radius);
 }
 
 .card-header {
     color: var(--primary);
-    background-color: var(--dark);
+    background-color: var(--blue);
     padding: 2.5%;
     border-radius: calc(0.18rem - 1px) calc(0.18rem - 1px) 0 0;
 }
@@ -184,7 +188,7 @@ p {
     padding: 3%;
     margin: 5px 0;
     font-size: 1.2rem;
-    border: 2px solid var(--light-dark);
+    border: 2px solid var(---gray);
     border-radius: var(--border-radius);
 }
 
