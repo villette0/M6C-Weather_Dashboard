@@ -3,6 +3,8 @@ var cityButtonsEL = document.querySelector('#city-buttons');
 var cityInputEl = document.querySelector('#city');
 var weatherContainerEl = document.querySelector('#weather-container');
 var citySearchTerm = document.querySelector('#city-search-term');
+var APIKey = "b577339e9250e36ef369eb66eef9b999";
+
 
 var formSubmitHandler = function (event) {
     event.preventDefault();
@@ -10,7 +12,7 @@ var formSubmitHandler = function (event) {
     var city = cityInputEl.value.trim();
 
     if (city) {
-        getUserRepos(city);
+        getCityData(city);
 
         weatherContainerEl.textContent = '';
         cityInputEl.value = '';
@@ -19,20 +21,9 @@ var formSubmitHandler = function (event) {
     }
 };
 
-var buttonClickHandler = function (event) {
-    // `event.target` is a reference to the DOM element of what programming language button was clicked on the page
-    var language = event.target.getAttribute('data-language');
 
-    // If there is no language read from the button, don't attempt to fetch repos
-    if (language) {
-        getFeaturedRepos(language);
-
-        weatherContainerEl.textContent = '';
-    }
-};
-
-var getUserRepos = function (user) {
-    var apiUrl = 'https://api.github.com/users/' + user + '/repos';
+var getCityData = function (city) {
+    var apiUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial" + "&appid=" + APIKey;
 
     fetch(apiUrl)
         .then(function (response) {
@@ -40,71 +31,44 @@ var getUserRepos = function (user) {
                 console.log(response);
                 response.json().then(function (data) {
                     console.log(data);
-                    displayRepos(data, user);
+                    displayWeather(data, city);
                 });
             } else {
                 alert('Error: ' + response.statusText);
             }
         })
         .catch(function (error) {
-            alert('Unable to connect to GitHub');
-        });
-};
-
-var getFeaturedRepos = function (language) {
-    // The `q` parameter is what language we want to query, the `+is:featured` flag adds a filter to return only featured repositories
-    // The `sort` parameter will instruct GitHub to respond with all of the repositories in order by the number of issues needing help
-    var apiUrl = 'https://api.github.com/search/repositories?q=' + language + '+is:featured&sort=help-wanted-issues';
-
-    fetch(apiUrl).then(function (response) {
-        if (response.ok) {
-            response.json().then(function (data) {
-                displayRepos(data.items, language);
+            alert('Unable to connect to Open Weather');
             });
-        } else {
-            alert('Error: ' + response.statusText);
-        }
-    });
+        
 };
 
-var displayRepos = function (repos, searchTerm) {
-    if (repos.length === 0) {
-        weatherContainerEl.textContent = 'No repositories found.';
-        // Without a `return` statement, the rest of this function will continue to run and perhaps throw an error if `repos` is empty
-        return;
-    }
 
-    citySearchTerm.textContent = searchTerm;
+function displayWeather (data, city) {
+    var todaysWeatherContainerEl = document.createElement('div');
+    var cityHeaderEl = document.createElement('h3');
+    var tempEl = document.createElement('p');
+    var windEl = document.createElement('p');
+    var humidityEl = document.createElement('p');
+    var uvIndexEl = document.createElement('p');
+    
+    cityHeaderEl.textContent = data.name + " Date and Cloudy";
+    tempEl.textContent = "Temperature: " +data.main.temp + " °F";;
+    windEl.textContent = "Wind: " + data.wind.speed + " MPH";
+    humidityEl.textContent = "Humidity: " + data.main.humidity + " %";
+    uvIndexEl.textContent = "UV Index: " + data.main.humidity + " %";
 
-    for (var i = 0; i < repos.length; i++) {
-        // The result will be `<github-city>/<github-repository-name>`
-        var repoName = repos[i].owner.login + '/' + repos[i].name;
+    cityHeaderEl.classList = 'city-header';
+    tempEl.classList = 'todays-weather-text';
 
-        var repoEl = document.createElement('div');
-        repoEl.classList = 'list-item flex-row justify-space-between align-center';
-
-        var titleEl = document.createElement('span');
-        titleEl.textContent = repoName;
-
-        repoEl.appendChild(titleEl);
-
-        var statusEl = document.createElement('span');
-        statusEl.classList = 'flex-row align-center';
-
-        if (repos[i].open_issues_count > 0) {
-            statusEl.innerHTML =
-                "<i class='fas fa-times status-icon icon-danger'></i>" + repos[i].open_issues_count + ' issue(s)';
-        } else {
-            statusEl.innerHTML = "<i class='fas fa-check-square status-icon icon-success'></i>";
-        }
-
-        repoEl.appendChild(statusEl);
-
-        weatherContainerEl.appendChild(repoEl);
-    }
+    cityHeaderEl.appendChild(tempEl);
+    cityHeaderEl.appendChild(windEl);
+    cityHeaderEl.appendChild(humidityEl);
+    cityHeaderEl.appendChild(uvIndexEl);
+    todaysWeatherContainerEl.appendChild(cityHeaderEl);
+    weatherContainerEl.appendChild(todaysWeatherContainerEl);
 };
 
 cityFormEl.addEventListener('submit', formSubmitHandler);
-cityButtonsEL.addEventListener('click', buttonClickHandler);
 
 
