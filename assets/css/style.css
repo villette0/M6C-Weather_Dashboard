@@ -2,7 +2,7 @@
 :root {
     --primary: #fafefb;
     --secondary: #34dbac;
-    --darkblue: #31467a;
+    --darkblue: #000099;
     ---gray: #949393;
     --blue: #2164ea;
     --border-radius: 0.3rem;
@@ -71,6 +71,7 @@ p {
     background-color: var(--darkblue);
     transform: translate(0, 0);
     box-shadow: 2px 2px var(--blue);
+    cursor: pointer;
 }
 
 .btn-inline {

@@ -1,21 +1,21 @@
-var userFormEl = document.querySelector('#user-form');
-var languageButtonsEl = document.querySelector('#language-buttons');
-var nameInputEl = document.querySelector('#username');
-var repoContainerEl = document.querySelector('#repos-container');
-var repoSearchTerm = document.querySelector('#repo-search-term');
+var cityFormEl = document.querySelector('#city-form');
+var cityButtonsEL = document.querySelector('#city-buttons');
+var cityInputEl = document.querySelector('#city');
+var weatherContainerEl = document.querySelector('#weather-container');
+var citySearchTerm = document.querySelector('#city-search-term');
 
 var formSubmitHandler = function (event) {
     event.preventDefault();
 
-    var username = nameInputEl.value.trim();
+    var city = cityInputEl.value.trim();
 
-    if (username) {
-        getUserRepos(username);
+    if (city) {
+        getUserRepos(city);
 
-        repoContainerEl.textContent = '';
-        nameInputEl.value = '';
+        weatherContainerEl.textContent = '';
+        cityInputEl.value = '';
     } else {
-        alert('Please enter a GitHub username');
+        alert('Please enter a city');
     }
 };
 
@@ -27,7 +27,7 @@ var buttonClickHandler = function (event) {
     if (language) {
         getFeaturedRepos(language);
 
-        repoContainerEl.textContent = '';
+        weatherContainerEl.textContent = '';
     }
 };
 
@@ -69,15 +69,15 @@ var getFeaturedRepos = function (language) {
 
 var displayRepos = function (repos, searchTerm) {
     if (repos.length === 0) {
-        repoContainerEl.textContent = 'No repositories found.';
+        weatherContainerEl.textContent = 'No repositories found.';
         // Without a `return` statement, the rest of this function will continue to run and perhaps throw an error if `repos` is empty
         return;
     }
 
-    repoSearchTerm.textContent = searchTerm;
+    citySearchTerm.textContent = searchTerm;
 
     for (var i = 0; i < repos.length; i++) {
-        // The result will be `<github-username>/<github-repository-name>`
+        // The result will be `<github-city>/<github-repository-name>`
         var repoName = repos[i].owner.login + '/' + repos[i].name;
 
         var repoEl = document.createElement('div');
@@ -100,11 +100,11 @@ var displayRepos = function (repos, searchTerm) {
 
         repoEl.appendChild(statusEl);
 
-        repoContainerEl.appendChild(repoEl);
+        weatherContainerEl.appendChild(repoEl);
     }
 };
 
-userFormEl.addEventListener('submit', formSubmitHandler);
-languageButtonsEl.addEventListener('click', buttonClickHandler);
+cityFormEl.addEventListener('submit', formSubmitHandler);
+cityButtonsEL.addEventListener('click', buttonClickHandler);
 
 

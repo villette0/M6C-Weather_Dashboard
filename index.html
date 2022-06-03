@@ -31,16 +31,16 @@
   
         <div class="card">
           <h3 class="card-header text-uppercase">Search for a City</h3>
-          <form id="user-form" class="card-body">
-            <label class="form-label" for="username">City</label>
-            <input name="username" id="username" type="text" autofocus="true" class="form-input" />
+          <form id="city-form" class="card-body">
+            <label class="form-label" for="city">City</label>
+            <input name="city" id="city" type="text" autofocus="true" class="form-input" />
             <button type="submit" class="btn">Search</button>
           </form>
         </div>
   
         <div class="card">
           <h3 class="card-header text-uppercase">Popular Cities</h3>
-          <div id="language-buttons" class="card-body">
+          <div id="city-buttons" class="card-body">
             <!-- These data-attribute values will be used to search for cities when a button is clicked. -->
             <button data-language="javascript" class="btn">Austin</button>
             <button data-language="html" class="btn">Chicago</button>
@@ -55,9 +55,9 @@
       </div>
   
       <div class="col-12 col-md-8">
-        <h2 class="subtitle">Showing Weather: <span id="repo-search-term"></span></h2>
+        <h2 class="subtitle">Showing Weather: <span id="city-search-term"></span></h2>
         <!-- There needs to be an empty HTML element for us to write weather data to. -->
-        <div id="repos-container" class="list-group"></div>
+        <div id="weather-container" class="list-group"></div>
       </div>
     </main>
   
