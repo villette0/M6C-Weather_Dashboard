@@ -121,11 +121,25 @@ p {
     box-shadow: 6px 5px var(---gray);
 }
 
+.today-weather-container {
+    border-radius: 5px;
+    border-color: black;
+    border-width: 5px;
+}
+
 .city-header {
     font-size:  30px;
     color: black;
     line-height: 120%;
     margin-top: 15px;
+    border-width: 5px;
+    border-color: black;
+}
+
+
+.greenUv {
+    background-color: green;
+    color: white;
 }
 
 /* CARDS */

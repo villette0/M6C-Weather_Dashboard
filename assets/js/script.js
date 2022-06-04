@@ -52,14 +52,39 @@ function displayWeather (data, city) {
     var humidityEl = document.createElement('p');
     var uvIndexEl = document.createElement('p');
     
-    cityHeaderEl.textContent = data.name + " Date and Cloudy";
+    var icon = "";
+    if (data.weather[0].main === "Rain") {
+        icon = " 🌧";
+    }
+    if (data.weather[0].main === "Clear") {
+        icon = " 🌞";
+    }
+    if (data.weather[0].main === "Clouds") {
+        icon = " ☁️";
+    }
+    if (data.weather[0].main === "Snow") {
+        icon = " 🌨";
+    }
+    if (data.weather[0].main === "Thunderstorm") {
+        icon = " ⛈️";
+    }
+    if (data.weather[0].main === "Drizzle") {
+        icon = " 🌦";
+    }
+    if (data.weather[0].main === "Atmosphere") {
+        icon = " 🌫";
+    }
+    ;
+
+    cityHeaderEl.textContent = data.name + " (" + (moment().format("M/DD/YYYY")) +") " + data.weather[0].main + icon;
     tempEl.textContent = "Temperature: " +data.main.temp + " °F";;
     windEl.textContent = "Wind: " + data.wind.speed + " MPH";
     humidityEl.textContent = "Humidity: " + data.main.humidity + " %";
-    uvIndexEl.textContent = "UV Index: " + data.main.humidity + " %";
+    getUvIndex(data.coord.lat, data.coord.lon);
 
+    uvIndexEl.classList = 'uv-index'
     cityHeaderEl.classList = 'city-header';
-    tempEl.classList = 'todays-weather-text';
+    todaysWeatherContainerEl.classList = 'today-weather-container';
 
     cityHeaderEl.appendChild(tempEl);
     cityHeaderEl.appendChild(windEl);
@@ -67,7 +92,85 @@ function displayWeather (data, city) {
     cityHeaderEl.appendChild(uvIndexEl);
     todaysWeatherContainerEl.appendChild(cityHeaderEl);
     weatherContainerEl.appendChild(todaysWeatherContainerEl);
+
+    getFiveDayForecast(data.coord.lat, data.coord.lon);
+
+
 };
+
+
+function getUvIndex (lat, lon) {
+    var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=hourly,daily" + "&appid=" + APIKey;
+    fetch(apiUrl)
+    .then(function (response) {
+        if (response.ok) {
+            console.log(response);
+            response.json().then(function (data) {
+                console.log(data);
+                // console.log(data.current.uvi); <<this number is what I will use in the displayUvi function
+                displayUvi(data);
+            });
+        } 
+    });
+}
+
+function displayUvi (data) {
+    var uvIndexEl = document.querySelector('.uv-index');
+    uvIndexEl.textContent = "UV Index: " + data.current.uvi;
+
+    var uvi = data.current.uvi;
+    // Low UV
+    if (uvi < 3) {
+        uvIndexEl.style.backgroundColor = 'green';
+        uvIndexEl.style.color = "white";
+        uvIndexEl.style.width = "10rem";
+    }
+    // Moderate UV
+    if (uvi > 2 && uvi < 6) {
+        uvIndexEl.style.backgroundColor = 'yellow';
+        uvIndexEl.style.color = "black";
+    }
+    // High UV
+    if (uvi > 5) {
+        uvIndexEl.style.backgroundColor = 'red';
+        uvIndexEl.style.color = "white";
+    }
+}
+
+
+function getFiveDayForecast (lat, lon) {
+    var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&units=imperial" + "&appid=" + APIKey;
+    fetch(apiUrl)
+    .then(function (response) {
+        if (response.ok) {
+            console.log(response);
+            response.json().then(function (data) {
+                console.log(data);
+               // displayFiveDayForecast(data);
+            });
+        } 
+    });
+}
+
+/*
+function displayFiveDayForecast (data) {
+    var fiveDayForecastContainerEl = document.createElement('div');
+    var fiveDayHeaderEl = document.createElement('h2');
+
+    var dayArray = [0,1,2,3,4]
+
+    for each () {
+    var dayContainerEl = document.createElement('div');
+    var dateEl = document.createElement('h3'); //(data.list[i].dt_txt);
+    var iconEl = document.createElement('p'); //(data.list[i].weather[0].main);
+    var tempEl = document.createElement('p'); //(data.list[i].main.temp);
+    var windEl = document.createElement('p'); //(data.list[i].wind.speed);
+    var humidityEl = document.createElement('p'); //(data.list[i].main.humidity);
+
+    }
+}
+*/
+
 
 cityFormEl.addEventListener('submit', formSubmitHandler);
 
