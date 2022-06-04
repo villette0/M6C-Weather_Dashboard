@@ -31,7 +31,8 @@ var getCityData = function (city) {
                 console.log(response);
                 response.json().then(function (data) {
                     console.log(data);
-                    displayWeather(data, city);
+                    displayCity(data);
+                    getCoordinates(data.coord.lat, data.coord.lon);
                 });
             } else {
                 alert('Error: ' + response.statusText);
@@ -43,15 +44,10 @@ var getCityData = function (city) {
         
 };
 
-
-function displayWeather (data, city) {
+function displayCity(data) {
     var todaysWeatherContainerEl = document.createElement('div');
     var cityHeaderEl = document.createElement('h3');
-    var tempEl = document.createElement('p');
-    var windEl = document.createElement('p');
-    var humidityEl = document.createElement('p');
-    var uvIndexEl = document.createElement('p');
-    
+
     var icon = "";
     if (data.weather[0].main === "Rain") {
         icon = " 🌧";
@@ -77,47 +73,54 @@ function displayWeather (data, city) {
     ;
 
     cityHeaderEl.textContent = data.name + " (" + (moment().format("MM/DD/YYYY")) +") " + data.weather[0].main + icon;
-    tempEl.textContent = "Temperature: " +data.main.temp + " °F";;
-    windEl.textContent = "Wind: " + data.wind.speed + " MPH";
-    humidityEl.textContent = "Humidity: " + data.main.humidity + " %";
-    getUvIndex(data.coord.lat, data.coord.lon);
 
-    uvIndexEl.classList = 'uv-index'
-    cityHeaderEl.classList = 'city-header';
     todaysWeatherContainerEl.classList = 'today-weather-container';
-
-    cityHeaderEl.appendChild(tempEl);
-    cityHeaderEl.appendChild(windEl);
-    cityHeaderEl.appendChild(humidityEl);
-    cityHeaderEl.appendChild(uvIndexEl);
+    cityHeaderEl.classList = 'city-header';
+    
     todaysWeatherContainerEl.appendChild(cityHeaderEl);
     weatherContainerEl.appendChild(todaysWeatherContainerEl);
+}
 
-    getFiveDayForecast(data.coord.lat, data.coord.lon);
-
-
-};
-
-
-function getUvIndex (lat, lon) {
-    var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=hourly,daily" + "&appid=" + APIKey;
+function getCoordinates (lat, lon) {
+    var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial" + "&appid=" + APIKey;
     fetch(apiUrl)
     .then(function (response) {
         if (response.ok) {
             console.log(response);
             response.json().then(function (data) {
                 console.log(data);
-                // console.log(data.current.uvi); <<this number is what I will use in the displayUvi function
-                displayUvi(data);
+                displayCurrentWeather(data);
+                displayFiveDayForecast(data);
             });
         } 
     });
 }
 
-function displayUvi (data) {
-    var uvIndexEl = document.querySelector('.uv-index');
+
+function displayCurrentWeather (data) {
+    var cityHeaderEl = document.querySelector('.city-header');
+    var tempEl = document.createElement('p');
+    var windEl = document.createElement('p');
+    var humidityEl = document.createElement('p');
+    var uvIndexEl = document.createElement('p');
+
+    tempEl.textContent = "Temperature: " +data.current.temp + " °F";;
+    windEl.textContent = "Wind: " + data.current.wind_speed + " MPH";
+    humidityEl.textContent = "Humidity: " + data.current.humidity + " %";
     uvIndexEl.textContent = "UV Index: " + data.current.uvi;
 
+    uvIndexEl.classList = 'uv-index'
+
+    cityHeaderEl.appendChild(tempEl);
+    cityHeaderEl.appendChild(windEl);
+    cityHeaderEl.appendChild(humidityEl);
+    cityHeaderEl.appendChild(uvIndexEl);
+    changeUviColor(data);
+};
+
+
+function changeUviColor (data) {
+    var uvIndexEl = document.querySelector('.uv-index');
     var uvi = data.current.uvi;
     // Low UV
     if (uvi < 3) {
@@ -138,78 +141,69 @@ function displayUvi (data) {
 }
 
 
-function getFiveDayForecast (lat, lon) {
-    var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&units=imperial" + "&appid=" + APIKey;
-    fetch(apiUrl)
-    .then(function (response) {
-        if (response.ok) {
-            console.log(response);
-            response.json().then(function (data) {
-                console.log(data);
-                displayFiveDayForecast(data);
-            });
-        } 
-    });
-}
-
-
-function displayFiveDayForecast (data) {
+function displayFiveDayForecast(data) {
     var fiveDayForecastContainerEl = document.createElement('div');
     var fiveDayHeaderEl = document.createElement('h2');
     var fiveDaysOnlyBoxEl = document.createElement('div');
 
     fiveDayHeaderEl.textContent = "5 Day Forecast";
 
-    fiveDaysOnlyBoxEl.classList = 'fivedaysonly-box';
-    fiveDayHeaderEl.classList = 'fiveday-header';
     fiveDayForecastContainerEl.classList = 'fiveday-container';
+    fiveDayHeaderEl.classList = 'fiveday-header';
+    fiveDaysOnlyBoxEl.classList = 'fivedaysonly-box';
 
     fiveDayForecastContainerEl.appendChild(fiveDayHeaderEl);
     fiveDayForecastContainerEl.appendChild(fiveDaysOnlyBoxEl);
     weatherContainerEl.appendChild(fiveDayForecastContainerEl);
 
-    // list items for 5 upcoming days: 2, 10, 18, 26, 34
-    var dayArray = [2, 10, 18, 26, 34]
+    //Daily forecast array for 5 upcoming days: 
+    var dayArray = [0, 1, 2, 3, 4]
     for (var i = 0; i < dayArray.length; i++) {
     var dayContainerEl = document.createElement('div');
-    var dateEl = document.createElement('p'); //(data.list[i].dt_txt);
-    var iconEl = document.createElement('p'); //(data.list[i].weather[0].main);
-    var tempEl = document.createElement('p'); //(data.list[i].main.temp);
-    var windEl = document.createElement('p'); //(data.list[i].wind.speed);
-    var humidityEl = document.createElement('p'); //(data.list[i].main.humidity);
+    var dateEl = document.createElement('p');  //?
+    var iconEl = document.createElement('p');  //(data.daily[i].weather[0].main);
+    var tempEl = document.createElement('p');  //(data.daily[i].temp);
+    var windEl = document.createElement('p');  //(data.daily[i].wind_speed);
+    var humidityEl = document.createElement('p');  //(data.daily[i].humidity);
 
     var icon = "";
-    if (data.list[(dayArray[i])].weather[0].main === "Rain") {
+    if (data.daily[i].weather[0].main === "Rain") {
         icon = "🌧";
     }
-    if (data.list[(dayArray[i])].weather[0].main === "Clear") {
+    if (data.daily[i].weather[0].main === "Clear") {
         icon = "🌞";
     }
-    if (data.list[(dayArray[i])].weather[0].main === "Clouds") {
+    if (data.daily[i].weather[0].main === "Clouds") {
         icon = "☁️";
     }
-    if (data.list[(dayArray[i])].weather[0].main === "Snow") {
+    if (data.daily[i].weather[0].main === "Snow") {
         icon = "🌨";
     }
-    if (data.list[(dayArray[i])].weather[0].main === "Thunderstorm") {
+    if (data.daily[i].weather[0].main=== "Thunderstorm") {
         icon = "⛈️";
     }
-    if (data.list[(dayArray[i])].weather[0].main=== "Drizzle") {
+    if (data.daily[i].weather[0].main === "Drizzle") {
         icon = " 🌦";
     }
-    if (data.list[(dayArray[i])].weather[0].main === "Atmosphere") {
+    if (data.daily[i].weather[0].main === "Atmosphere") {
         icon = "🌫";
     }
     ;
 
-    
+    function displayDate () {
 
-    displayDate(dateEl);
-    // dateEl.textContent = data.list[(dayArray[i])].dt_txt;
-    iconEl.textContent = icon + " " + data.list[(dayArray[i])].weather[0].main;
-    tempEl.textContent = "Temp: " + data.list[(dayArray[i])].main.temp + " °F";
-    windEl.textContent = "Wind: " + data.list[(dayArray[i])].wind.speed + " MPH";
-    humidityEl.textContent = "Humidity: " + data.list[(dayArray[i])].main.humidity + " %";
+    }
+
+
+
+    // displayDate();
+    //      or
+    // dateEl.textContent = ?;
+    // Tip: to call array item if different from starting at 0 can be: ex. data.list[(dayArray[i])].wind.speed 
+    iconEl.textContent = icon + " " + data.daily[i].weather[0].main;
+    tempEl.textContent = "Temp: " + data.daily[i].temp.day + " °F";
+    windEl.textContent = "Wind: " + data.daily[i].wind_speed + " MPH";
+    humidityEl.textContent = "Humidity: " + data.daily[i].humidity + " %";
 
     dayContainerEl.classList = 'day-container';
 
@@ -220,20 +214,8 @@ function displayFiveDayForecast (data) {
     dayContainerEl.appendChild(humidityEl);
     fiveDaysOnlyBoxEl.appendChild(dayContainerEl);
     }
-}
 
-
-var dayForward = "";
-var dayForwardArray = [1, 2, 3, 4, 5]
-function displayDate (dateEl) {
-for (var i = 0; i < dayForwardArray.length; i++) {
-    dayForward = moment().add((dayForwardArray[i]), 'days').format("MM/DD/YYYY");
-    console.log(moment().add(1, 'days').format("MM/DD/YYYY"));
-}
-dateEl.textContent = dayForward;
 }
 
 
 cityFormEl.addEventListener('submit', formSubmitHandler);
-
-
