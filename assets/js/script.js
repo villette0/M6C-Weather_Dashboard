@@ -146,30 +146,55 @@ function getFiveDayForecast (lat, lon) {
             console.log(response);
             response.json().then(function (data) {
                 console.log(data);
-               // displayFiveDayForecast(data);
+                displayFiveDayForecast(data);
             });
         } 
     });
 }
 
-/*
+
 function displayFiveDayForecast (data) {
     var fiveDayForecastContainerEl = document.createElement('div');
     var fiveDayHeaderEl = document.createElement('h2');
+    var fiveDaysOnlyBoxEl = document.createElement('div');
 
-    var dayArray = [0,1,2,3,4]
+    fiveDayHeaderEl.textContent = "5 Day Forecast";
 
-    for each () {
+    fiveDaysOnlyBoxEl.classList = 'fivedaysonly-box';
+    fiveDayHeaderEl.classList = 'fiveday-header';
+    fiveDayForecastContainerEl.classList = 'fiveday-container';
+
+    fiveDayForecastContainerEl.appendChild(fiveDayHeaderEl);
+    fiveDayForecastContainerEl.appendChild(fiveDaysOnlyBoxEl);
+    weatherContainerEl.appendChild(fiveDayForecastContainerEl);
+
+    var dayArray = [0, 10, 2, 3, 4]
+    for (var i = 0; i < dayArray.length; i++) {
     var dayContainerEl = document.createElement('div');
-    var dateEl = document.createElement('h3'); //(data.list[i].dt_txt);
+    var dateEl = document.createElement('p'); //(data.list[i].dt_txt);
     var iconEl = document.createElement('p'); //(data.list[i].weather[0].main);
     var tempEl = document.createElement('p'); //(data.list[i].main.temp);
     var windEl = document.createElement('p'); //(data.list[i].wind.speed);
     var humidityEl = document.createElement('p'); //(data.list[i].main.humidity);
 
+    dateEl.textContent = data.list[i].dt_txt;
+    iconEl.textContent = data.list[i].weather[0].main;
+    tempEl.textContent = "Temperature: " + data.list[i].main.temp + " °F";
+    windEl.textContent = "Wind: " + data.list[i].wind.speed + " MPH";
+    humidityEl.textContent = "Humidity: " + data.list[i].main.humidity + " %";
+
+    dayContainerEl.classList = 'day-container';
+
+    dayContainerEl.appendChild(dateEl);
+    dayContainerEl.appendChild(iconEl);
+    dayContainerEl.appendChild(tempEl);
+    dayContainerEl.appendChild(windEl);
+    dayContainerEl.appendChild(humidityEl);
+    fiveDaysOnlyBoxEl.appendChild(dayContainerEl);
     }
+
 }
-*/
+
 
 
 cityFormEl.addEventListener('submit', formSubmitHandler);
