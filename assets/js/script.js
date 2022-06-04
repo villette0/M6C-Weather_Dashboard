@@ -23,7 +23,7 @@ var formSubmitHandler = function (event) {
 
 
 var getCityData = function (city) {
-    var apiUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial" + "&appid=" + APIKey;
+    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial" + "&appid=" + APIKey;
 
     fetch(apiUrl)
         .then(function (response) {
