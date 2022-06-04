@@ -3,7 +3,7 @@
     --primary: #fafefb;
     --secondary: #34dbac;
     --darkblue: #000099;
-    ---gray: #949393;
+    --grey: #949393;
     --blue: #2164ea;
     --border-radius: 0.3rem;
 }
@@ -59,7 +59,7 @@ p {
     color: var(--primary);
     border: none;
     outline: none;
-    background-color: var(---gray);
+    background-color: var(--grey);
 
     /* The button will appear to be pressed on hover by translating its position and shrinking its box-shadow */
     box-shadow: 3px 3px var(--blue);
@@ -83,7 +83,7 @@ p {
     color: var(--primary);
     border: none;
     outline: none;
-    background-color: var(---gray);
+    background-color: var(--grey);
     box-shadow: 3px 3px var(--secondary);
     transform: translate(-1px, -1px);
     display: inline-block;
@@ -118,26 +118,24 @@ p {
     padding: 0 10px;
     display: inline-block;
     border-radius: var(--border-radius);
-    box-shadow: 6px 5px var(---gray);
+    box-shadow: 6px 5px var(--grey);
 }
 
 .today-weather-container {
+    border: 3px solid var(--grey);
     border-radius: 5px;
-    border-color: black;
-    border-width: 5px;
+    margin-top: 8px;
+    padding: 10px;
 }
 
 .city-header {
     font-size:  30px;
     color: black;
     line-height: 120%;
-    margin-top: 15px;
-    border-width: 5px;
-    border-color: black;
 }
 
 .fiveday-container {
-    margin-top: 50px;
+    margin-top: 25px;
 }
 
 .fiveday-header {
@@ -154,10 +152,12 @@ p {
     border: 3px solid white;
     border-radius: 10px;
     padding: 10px;
-    margin-left: 0px;
-    margin-right: 8px;
     background-color: var(--blue);
     color: white;
+}
+
+.day-container p {
+    font-size: 16px;
 }
 
 /* CARDS */
@@ -195,7 +195,7 @@ p {
     padding: 3%;
     margin: 5px 0;
     font-size: 1.2rem;
-    border: 2px solid var(---gray);
+    border: 2px solid var(--grey);
     border-radius: var(--border-radius);
 }
 

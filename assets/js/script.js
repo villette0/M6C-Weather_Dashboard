@@ -76,7 +76,7 @@ function displayWeather (data, city) {
     }
     ;
 
-    cityHeaderEl.textContent = data.name + " (" + (moment().format("M/DD/YYYY")) +") " + data.weather[0].main + icon;
+    cityHeaderEl.textContent = data.name + " (" + (moment().format("MM/DD/YYYY")) +") " + data.weather[0].main + icon;
     tempEl.textContent = "Temperature: " +data.main.temp + " °F";;
     windEl.textContent = "Wind: " + data.wind.speed + " MPH";
     humidityEl.textContent = "Humidity: " + data.main.humidity + " %";
@@ -168,7 +168,8 @@ function displayFiveDayForecast (data) {
     fiveDayForecastContainerEl.appendChild(fiveDaysOnlyBoxEl);
     weatherContainerEl.appendChild(fiveDayForecastContainerEl);
 
-    var dayArray = [0, 10, 2, 3, 4]
+    // list items for 5 upcoming days: 2, 10, 18, 26, 34
+    var dayArray = [2, 10, 18, 26, 34]
     for (var i = 0; i < dayArray.length; i++) {
     var dayContainerEl = document.createElement('div');
     var dateEl = document.createElement('p'); //(data.list[i].dt_txt);
@@ -177,11 +178,38 @@ function displayFiveDayForecast (data) {
     var windEl = document.createElement('p'); //(data.list[i].wind.speed);
     var humidityEl = document.createElement('p'); //(data.list[i].main.humidity);
 
-    dateEl.textContent = data.list[i].dt_txt;
-    iconEl.textContent = data.list[i].weather[0].main;
-    tempEl.textContent = "Temperature: " + data.list[i].main.temp + " °F";
-    windEl.textContent = "Wind: " + data.list[i].wind.speed + " MPH";
-    humidityEl.textContent = "Humidity: " + data.list[i].main.humidity + " %";
+    var icon = "";
+    if (data.list[(dayArray[i])].weather[0].main === "Rain") {
+        icon = "🌧";
+    }
+    if (data.list[(dayArray[i])].weather[0].main === "Clear") {
+        icon = "🌞";
+    }
+    if (data.list[(dayArray[i])].weather[0].main === "Clouds") {
+        icon = "☁️";
+    }
+    if (data.list[(dayArray[i])].weather[0].main === "Snow") {
+        icon = "🌨";
+    }
+    if (data.list[(dayArray[i])].weather[0].main === "Thunderstorm") {
+        icon = "⛈️";
+    }
+    if (data.list[(dayArray[i])].weather[0].main=== "Drizzle") {
+        icon = " 🌦";
+    }
+    if (data.list[(dayArray[i])].weather[0].main === "Atmosphere") {
+        icon = "🌫";
+    }
+    ;
+
+    
+
+    displayDate(dateEl);
+    // dateEl.textContent = data.list[(dayArray[i])].dt_txt;
+    iconEl.textContent = icon + " " + data.list[(dayArray[i])].weather[0].main;
+    tempEl.textContent = "Temp: " + data.list[(dayArray[i])].main.temp + " °F";
+    windEl.textContent = "Wind: " + data.list[(dayArray[i])].wind.speed + " MPH";
+    humidityEl.textContent = "Humidity: " + data.list[(dayArray[i])].main.humidity + " %";
 
     dayContainerEl.classList = 'day-container';
 
@@ -192,9 +220,18 @@ function displayFiveDayForecast (data) {
     dayContainerEl.appendChild(humidityEl);
     fiveDaysOnlyBoxEl.appendChild(dayContainerEl);
     }
-
 }
 
+
+var dayForward = "";
+var dayForwardArray = [1, 2, 3, 4, 5]
+function displayDate (dateEl) {
+for (var i = 0; i < dayForwardArray.length; i++) {
+    dayForward = moment().add((dayForwardArray[i]), 'days').format("MM/DD/YYYY");
+    console.log(moment().add(1, 'days').format("MM/DD/YYYY"));
+}
+dateEl.textContent = dayForward;
+}
 
 
 cityFormEl.addEventListener('submit', formSubmitHandler);
