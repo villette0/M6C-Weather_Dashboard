@@ -190,15 +190,17 @@ function displayFiveDayForecast(data) {
     }
     ;
 
+    var dayForward = "";
+    var dayForwardArray = [1, 2, 3, 4, 5]
     function displayDate () {
-
+    for (var i = 0; i < dayForwardArray.length; i++) {
+        dayForward = moment().add((dayForwardArray[i]), 'days').format("MM/DD/YYYY");
+        }
     }
 
+    displayDate();
+    dateEl.textContent = dayForward;
 
-
-    // displayDate();
-    //      or
-    // dateEl.textContent = ?;
     // Tip: to call array item if different from starting at 0 can be: ex. data.list[(dayArray[i])].wind.speed 
     iconEl.textContent = icon + " " + data.daily[i].weather[0].main;
     tempEl.textContent = "Temp: " + data.daily[i].temp.day + " °F";
