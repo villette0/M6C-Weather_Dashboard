@@ -5,6 +5,8 @@ var weatherContainerEl = document.querySelector('#weather-container');
 var citySearchTerm = document.querySelector('#city-search-term');
 var APIKey = "b577339e9250e36ef369eb66eef9b999";
 
+// Should this be here? research local storage
+populateButton();
 
 var formSubmitHandler = function (event) {
     event.preventDefault();
@@ -13,7 +15,7 @@ var formSubmitHandler = function (event) {
 
     if (city) {
         getCityData(city);
-
+        saveCityName(city);
         weatherContainerEl.textContent = '';
         cityInputEl.value = '';
     } else {
@@ -22,7 +24,7 @@ var formSubmitHandler = function (event) {
 };
 
 
-var getCityData = function (city) {
+function getCityData (city) {
     var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial" + "&appid=" + APIKey;
 
     fetch(apiUrl)
@@ -212,6 +214,23 @@ function displayFiveDayForecast(data) {
     fiveDaysOnlyBoxEl.appendChild(dayContainerEl);
     }
 
+}
+
+function saveCityName (city) {
+    localStorage.setItem('cityName', city);
+    populateButton();
+}
+
+
+function populateButton () {
+    var cityForButton = localStorage.getItem('cityName');
+    if (cityForButton) {
+    var oldCityButtonEl = document.createElement('button');
+    oldCityButtonEl.textContent = cityForButton;
+    oldCityButtonEl.classList = 'btn';
+    cityButtonsEL.appendChild(oldCityButtonEl);
+    // oldCityButtonEl.addEventListener('click', getCityData(cityForButton));
+    }
 }
 
 
