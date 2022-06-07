@@ -5,8 +5,10 @@ var weatherContainerEl = document.querySelector('#weather-container');
 var citySearchTerm = document.querySelector('#city-search-term');
 var APIKey = "b577339e9250e36ef369eb66eef9b999";
 
+
+document.addEventListener('DOMContentLoaded', populateButton);
 // Should this be here? research local storage
-populateButton();
+// populateButton();
 
 var formSubmitHandler = function (event) {
     event.preventDefault();
@@ -24,7 +26,7 @@ var formSubmitHandler = function (event) {
 };
 
 
-function getCityData (city) {
+function getCityData(city) {
     var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial" + "&appid=" + APIKey;
 
     fetch(apiUrl)
@@ -42,8 +44,8 @@ function getCityData (city) {
         })
         .catch(function (error) {
             alert('Unable to connect to Open Weather');
-            });
-        
+        });
+
 };
 
 function displayCity(data) {
@@ -74,39 +76,39 @@ function displayCity(data) {
     }
     ;
 
-    cityHeaderEl.textContent = data.name + " (" + (moment().format("MM/DD/YYYY")) +") " + data.weather[0].main + icon;
+    cityHeaderEl.textContent = data.name + " (" + (moment().format("MM/DD/YYYY")) + ") " + data.weather[0].main + icon;
 
     todaysWeatherContainerEl.classList = 'today-weather-container';
     cityHeaderEl.classList = 'city-header';
-    
+
     todaysWeatherContainerEl.appendChild(cityHeaderEl);
     weatherContainerEl.appendChild(todaysWeatherContainerEl);
 }
 
-function getCoordinates (lat, lon) {
+function getCoordinates(lat, lon) {
     var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial" + "&appid=" + APIKey;
     fetch(apiUrl)
-    .then(function (response) {
-        if (response.ok) {
-            console.log(response);
-            response.json().then(function (data) {
-                console.log(data);
-                displayCurrentWeather(data);
-                displayFiveDayForecast(data);
-            });
-        } 
-    });
+        .then(function (response) {
+            if (response.ok) {
+                console.log(response);
+                response.json().then(function (data) {
+                    console.log(data);
+                    displayCurrentWeather(data);
+                    displayFiveDayForecast(data);
+                });
+            }
+        });
 }
 
 
-function displayCurrentWeather (data) {
+function displayCurrentWeather(data) {
     var cityHeaderEl = document.querySelector('.city-header');
     var tempEl = document.createElement('p');
     var windEl = document.createElement('p');
     var humidityEl = document.createElement('p');
     var uvIndexEl = document.createElement('p');
 
-    tempEl.textContent = "Temperature: " +data.current.temp + " °F";;
+    tempEl.textContent = "Temperature: " + data.current.temp + " °F";;
     windEl.textContent = "Wind: " + data.current.wind_speed + " MPH";
     humidityEl.textContent = "Humidity: " + data.current.humidity + " %";
     uvIndexEl.textContent = "UV Index: " + data.current.uvi;
@@ -121,7 +123,7 @@ function displayCurrentWeather (data) {
 };
 
 
-function changeUviColor (data) {
+function changeUviColor(data) {
     var uvIndexEl = document.querySelector('.uv-index');
     var uvi = data.current.uvi;
     // Low UV
@@ -161,76 +163,98 @@ function displayFiveDayForecast(data) {
     //Daily forecast array for 5 upcoming days: 
     var dayArray = [0, 1, 2, 3, 4]
     for (var i = 0; i < dayArray.length; i++) {
-    var dayContainerEl = document.createElement('div');
-    var dateEl = document.createElement('p');  //?
-    var iconEl = document.createElement('p');  //(data.daily[i].weather[0].main);
-    var tempEl = document.createElement('p');  //(data.daily[i].temp);
-    var windEl = document.createElement('p');  //(data.daily[i].wind_speed);
-    var humidityEl = document.createElement('p');  //(data.daily[i].humidity);
+        var dayContainerEl = document.createElement('div');
+        var dateEl = document.createElement('p');  //?
+        var iconEl = document.createElement('p');  //(data.daily[i].weather[0].main);
+        var tempEl = document.createElement('p');  //(data.daily[i].temp);
+        var windEl = document.createElement('p');  //(data.daily[i].wind_speed);
+        var humidityEl = document.createElement('p');  //(data.daily[i].humidity);
 
-    var icon = "";
-    if (data.daily[i].weather[0].main === "Rain") {
-        icon = "🌧";
-    }
-    if (data.daily[i].weather[0].main === "Clear") {
-        icon = "🌞";
-    }
-    if (data.daily[i].weather[0].main === "Clouds") {
-        icon = "☁️";
-    }
-    if (data.daily[i].weather[0].main === "Snow") {
-        icon = "🌨";
-    }
-    if (data.daily[i].weather[0].main=== "Thunderstorm") {
-        icon = "⛈️";
-    }
-    if (data.daily[i].weather[0].main === "Drizzle") {
-        icon = " 🌦";
-    }
-    if (data.daily[i].weather[0].main === "Atmosphere") {
-        icon = "🌫";
-    }
-    ;
+        var icon = "";
+        if (data.daily[i].weather[0].main === "Rain") {
+            icon = "🌧";
+        }
+        if (data.daily[i].weather[0].main === "Clear") {
+            icon = "🌞";
+        }
+        if (data.daily[i].weather[0].main === "Clouds") {
+            icon = "☁️";
+        }
+        if (data.daily[i].weather[0].main === "Snow") {
+            icon = "🌨";
+        }
+        if (data.daily[i].weather[0].main === "Thunderstorm") {
+            icon = "⛈️";
+        }
+        if (data.daily[i].weather[0].main === "Drizzle") {
+            icon = " 🌦";
+        }
+        if (data.daily[i].weather[0].main === "Atmosphere") {
+            icon = "🌫";
+        }
+        ;
 
-    var dayForward = "";
-    var dayForwardArray = [1, 2, 3, 4, 5]
-    dayForward = moment().add((dayForwardArray[i]), 'days').format("MM/DD/YYYY");
-    // lookup units timestamp to convert date data from seconds as another way
+        var dayForward = "";
+        var dayForwardArray = [1, 2, 3, 4, 5]
+        dayForward = moment().add((dayForwardArray[i]), 'days').format("MM/DD/YYYY");
+        // lookup units timestamp to convert date data from seconds as another way
 
-    dateEl.textContent = dayForward;
-    // Tip: to call array item if different from starting at 0 can be: ex. data.list[(dayArray[i])].wind.speed 
-    iconEl.textContent = icon + " " + data.daily[i].weather[0].main;
-    tempEl.textContent = "Temp: " + data.daily[i].temp.day + " °F";
-    windEl.textContent = "Wind: " + data.daily[i].wind_speed + " MPH";
-    humidityEl.textContent = "Humidity: " + data.daily[i].humidity + " %";
+        dateEl.textContent = dayForward;
+        // Tip: to call array item if different from starting at 0 can be: ex. data.list[(dayArray[i])].wind.speed 
+        iconEl.textContent = icon + " " + data.daily[i].weather[0].main;
+        tempEl.textContent = "Temp: " + data.daily[i].temp.day + " °F";
+        windEl.textContent = "Wind: " + data.daily[i].wind_speed + " MPH";
+        humidityEl.textContent = "Humidity: " + data.daily[i].humidity + " %";
 
-    dayContainerEl.classList = 'day-container';
+        dayContainerEl.classList = 'day-container';
 
-    dayContainerEl.appendChild(dateEl);
-    dayContainerEl.appendChild(iconEl);
-    dayContainerEl.appendChild(tempEl);
-    dayContainerEl.appendChild(windEl);
-    dayContainerEl.appendChild(humidityEl);
-    fiveDaysOnlyBoxEl.appendChild(dayContainerEl);
+        dayContainerEl.appendChild(dateEl);
+        dayContainerEl.appendChild(iconEl);
+        dayContainerEl.appendChild(tempEl);
+        dayContainerEl.appendChild(windEl);
+        dayContainerEl.appendChild(humidityEl);
+        fiveDaysOnlyBoxEl.appendChild(dayContainerEl);
     }
 
 }
 
-function saveCityName (city) {
-    localStorage.setItem('cityName', city);
-    populateButton();
+function saveCityName(city) {
+    //Check if already have info in there
+    let citiesArray;
+    //if there are no todos in storage then make an empty array
+    if (localStorage.getItem('cities') === null) {
+        citiesArray = []; //an empty array
+    }
+    else {
+        //else if there are cities then get them from the json object
+        citiesArray = JSON.parse(localStorage.getItem('cities'));
+    }
+    //then push the todo item into the blank array
+    citiesArray.push(city);
+    localStorage.setItem('cities', JSON.stringify(citiesArray));
 }
 
 
-function populateButton () {
-    var cityForButton = localStorage.getItem('cityName');
-    if (cityForButton) {
-    var oldCityButtonEl = document.createElement('button');
-    oldCityButtonEl.textContent = cityForButton;
-    oldCityButtonEl.classList = 'btn';
-    cityButtonsEL.appendChild(oldCityButtonEl);
-    // oldCityButtonEl.addEventListener('click', getCityData(cityForButton));
+function populateButton() {
+    //Check if already have info in there
+    let citiesArray;
+    //if there are no todos in storage then make an empty array
+    if (localStorage.getItem('cities') === null) {
+        citiesArray = []; //an empty array
     }
+    else {
+        //else if there are cities then get them from the json object
+        citiesArray = JSON.parse(localStorage.getItem('cities'));
+    }
+
+    citiesArray.forEach(function (city) {
+        var oldCityButtonEl = document.createElement('button');
+        oldCityButtonEl.textContent = city;
+        oldCityButtonEl.classList = 'btn';
+        cityButtonsEL.appendChild(oldCityButtonEl);
+        // oldCityButtonEl.addEventListener('click', getCityData(city));
+
+    });
 }
 
 
