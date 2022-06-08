@@ -1,5 +1,4 @@
-# Title of Project
-Weather Dashboard
+# Weather Dashboard
 
 ## Website Description
 The website enables a user to search a city or select it from suggestions to display a weather forecast for the upcoming days.
@@ -50,9 +49,9 @@ The JavaScript document includes:
 - JavaScript
 
 ## Links
-* [Deployed webpage](https://villettec.github.io/Module_6_Challenge-Weather_Dashboard/)
+* [Deployed webpage](https://villettec.github.io/M6C-Weather_Dashboard/)
 
-* [Repository](https://github.com/villettec/Module_6_Challenge-Weather_Dashboard)
+* [Repository](https://github.com/villettec/M6C-Weather_Dashboard)
 
 ## Screenshot
 ![image](./assets/images/readme-screenshot.png)
