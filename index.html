@@ -40,19 +40,19 @@
   
         <div class="card">
           <h3 class="card-header text-uppercase">Recent Searches</h3>
-          <div id="city-buttons" class="card-body">
-            <!-- These data-attribute values will be used to search for cities when a button is clicked. -->
-            <button data-language="javascript" class="btn">Austin</button>
-            <button data-language="html" class="btn">Chicago</button>
-            <button data-language="css" class="btn">New York</button>
+          <div id="city-buttons-container" class="card-body">
+            <!-- Buttons from old searches will populate in here -->
           </div>
         </div>
       </div>
   
       <div class="col-12 col-md-9">
         <h2 class="subtitle">Showing Weather: <span id="city-search-term"></span></h2>
-        <!-- There needs to be an empty HTML element for us to write weather data to. -->
-        <div id="weather-container"></div>
+        <div id="weather-container">
+          <!-- Weather display will populate in here -->
+          <!-- First a current weather div -->
+          <!-- Then a 5 day forecast div -->
+        </div>
       </div>
     </main>
   <!-- Moments link for current date -->

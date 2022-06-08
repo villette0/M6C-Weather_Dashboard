@@ -1,23 +1,27 @@
+// Universal variables from elements selected by id/class
 var cityFormEl = document.querySelector('#city-form');
-var cityButtonsEL = document.querySelector('#city-buttons');
+var cityButtonsContainerEL = document.querySelector('#city-buttons-container');
 var cityInputEl = document.querySelector('#city');
 var weatherContainerEl = document.querySelector('#weather-container');
 var citySearchTerm = document.querySelector('#city-search-term');
 var APIKey = "b577339e9250e36ef369eb66eef9b999";
+var citiesArray; //for localstorage work
 
+// Event listener to populate old search buttons from local storage
+document.addEventListener('DOMContentLoaded', loadOldSearchButtons);
 
-document.addEventListener('DOMContentLoaded', populateButton);
-// Should this be here? research local storage
-// populateButton();
-
+// Function on what to do when text is entered into the city search box
 var formSubmitHandler = function (event) {
     event.preventDefault();
 
     var city = cityInputEl.value.trim();
 
     if (city) {
+        // Gather the data from weather Api
         getCityData(city);
+        // Save to local storage
         saveCityName(city);
+        loadOldSearchButtons();
         weatherContainerEl.textContent = '';
         cityInputEl.value = '';
     } else {
@@ -25,7 +29,7 @@ var formSubmitHandler = function (event) {
     }
 };
 
-
+// Function to gather data from current weather api, searching by city
 function getCityData(city) {
     var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial" + "&appid=" + APIKey;
 
@@ -35,7 +39,9 @@ function getCityData(city) {
                 console.log(response);
                 response.json().then(function (data) {
                     console.log(data);
+                    // Call function to display results just for the city header
                     displayCity(data);
+                    // Call function to get coordintaes from this data which we will convert to use One Api instead for more data availability
                     getCoordinates(data.coord.lat, data.coord.lon);
                 });
             } else {
@@ -48,6 +54,7 @@ function getCityData(city) {
 
 };
 
+// Function just to display city header
 function displayCity(data) {
     var todaysWeatherContainerEl = document.createElement('div');
     var cityHeaderEl = document.createElement('h3');
@@ -83,8 +90,30 @@ function displayCity(data) {
 
     todaysWeatherContainerEl.appendChild(cityHeaderEl);
     weatherContainerEl.appendChild(todaysWeatherContainerEl);
+
 }
 
+//Function to remove what's currently on page
+function clearPage() {
+    weatherContainerEl.textContent = '';
+    cityInputEl.value = '';
+}
+
+function createCityButton(cityName) {
+    var oldCityButtonEl = document.createElement('button');
+    oldCityButtonEl.textContent = cityName;
+    oldCityButtonEl.classList = 'btn city-button';
+    oldCityButtonEl.style = "text-transform: capitalize";
+    oldCityButtonEl.dataset.city = cityName;
+    cityButtonsContainerEL.appendChild(oldCityButtonEl);
+    oldCityButtonEl.addEventListener('click', function() {
+        var thisCity = this.getAttribute('data-city');
+        clearPage();
+        getCityData(thisCity);
+    })
+}
+
+// Function to grab coordinates from current weather api, input them into One Api, and get results/data
 function getCoordinates(lat, lon) {
     var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial" + "&appid=" + APIKey;
     fetch(apiUrl)
@@ -93,14 +122,16 @@ function getCoordinates(lat, lon) {
                 console.log(response);
                 response.json().then(function (data) {
                     console.log(data);
+                    // From this one Api, display current weather div
                     displayCurrentWeather(data);
+                    // From this one Api, display five day forecast div
                     displayFiveDayForecast(data);
                 });
             }
         });
 }
 
-
+// Function to display weather just for today from One Api call
 function displayCurrentWeather(data) {
     var cityHeaderEl = document.querySelector('.city-header');
     var tempEl = document.createElement('p');
@@ -122,7 +153,7 @@ function displayCurrentWeather(data) {
     changeUviColor(data);
 };
 
-
+// Function just for changing UVI color based on number's severity
 function changeUviColor(data) {
     var uvIndexEl = document.querySelector('.uv-index');
     var uvi = data.current.uvi;
@@ -136,15 +167,17 @@ function changeUviColor(data) {
     if (uvi > 2 && uvi < 6) {
         uvIndexEl.style.backgroundColor = 'yellow';
         uvIndexEl.style.color = "black";
+        uvIndexEl.style.width = "10rem";
     }
     // High UV
     if (uvi > 5) {
         uvIndexEl.style.backgroundColor = 'red';
         uvIndexEl.style.color = "white";
+        uvIndexEl.style.width = "10rem";
     }
 }
 
-
+// Function to display Five Day Forecast div
 function displayFiveDayForecast(data) {
     var fiveDayForecastContainerEl = document.createElement('div');
     var fiveDayHeaderEl = document.createElement('h2');
@@ -164,7 +197,7 @@ function displayFiveDayForecast(data) {
     var dayArray = [0, 1, 2, 3, 4]
     for (var i = 0; i < dayArray.length; i++) {
         var dayContainerEl = document.createElement('div');
-        var dateEl = document.createElement('p');  //?
+        var dateEl = document.createElement('p');  
         var iconEl = document.createElement('p');  //(data.daily[i].weather[0].main);
         var tempEl = document.createElement('p');  //(data.daily[i].temp);
         var windEl = document.createElement('p');  //(data.daily[i].wind_speed);
@@ -218,9 +251,27 @@ function displayFiveDayForecast(data) {
 
 }
 
+// Function to save the city name that is inputted into the search box into a local storage array
 function saveCityName(city) {
-    //Check if already have info in there
-    let citiesArray;
+    //Push the todo item into the blank array, if it isn't already there
+    if (!citiesArray.includes(city.toLowerCase())) {
+        citiesArray.push(city.toLowerCase());
+        localStorage.setItem('cities', JSON.stringify(citiesArray));
+    }
+}
+
+
+// Function for removing children
+function removeChilds(parent) {
+    while (parent.lastChild) {
+        parent.removeChild(parent.lastChild);
+    }
+};
+
+
+// Function for the document to load all the old search buttons and make them display the corresponding city day
+function loadOldSearchButtons() {
+    removeChilds(cityButtonsContainerEL);
     //if there are no todos in storage then make an empty array
     if (localStorage.getItem('cities') === null) {
         citiesArray = []; //an empty array
@@ -229,33 +280,9 @@ function saveCityName(city) {
         //else if there are cities then get them from the json object
         citiesArray = JSON.parse(localStorage.getItem('cities'));
     }
-    //then push the todo item into the blank array
-    citiesArray.push(city);
-    localStorage.setItem('cities', JSON.stringify(citiesArray));
+    // Arrow function, for each with a function with a parameter
+    citiesArray.forEach((city) => createCityButton(city));
 }
 
-
-function populateButton() {
-    //Check if already have info in there
-    let citiesArray;
-    //if there are no todos in storage then make an empty array
-    if (localStorage.getItem('cities') === null) {
-        citiesArray = []; //an empty array
-    }
-    else {
-        //else if there are cities then get them from the json object
-        citiesArray = JSON.parse(localStorage.getItem('cities'));
-    }
-
-    citiesArray.forEach(function (city) {
-        var oldCityButtonEl = document.createElement('button');
-        oldCityButtonEl.textContent = city;
-        oldCityButtonEl.classList = 'btn';
-        cityButtonsEL.appendChild(oldCityButtonEl);
-        // oldCityButtonEl.addEventListener('click', getCityData(city));
-
-    });
-}
-
-
+// Event listener that on click, formSubmitHandler function is called which then calls all other functions
 cityFormEl.addEventListener('submit', formSubmitHandler);
