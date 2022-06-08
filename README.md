@@ -43,6 +43,8 @@ The HTML document includes:
 The CSS document includes:
 * universal, elemental, class, and id selectors
 * stylization for the header, cities button list, current weather, and five day forecasts
+* universal variables
+* comments
 
 The JavaScript document includes:
 * universal variables with query selectors
@@ -51,6 +53,7 @@ The JavaScript document includes:
 * containers for current weather and five day forecast via appending the parent div
 * event listener for clicking a city button
 * saving and retrieving recent searches for button information from localStorage
+* comments
 
 ## Languages
 - HTML

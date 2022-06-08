@@ -66,39 +66,13 @@ p {
     transform: translate(-1px, -1px);
 }
 
+/* When hovering over a button it looks blue */
 .btn:hover {
     color: var(--primary);
     background-color: var(--darkblue);
     transform: translate(0, 0);
     box-shadow: 2px 2px var(--blue);
     cursor: pointer;
-}
-
-.btn-inline {
-    display: inline;
-}
-
-.btn-back {
-    border-radius: var(--border-radius);
-    color: var(--primary);
-    border: none;
-    outline: none;
-    background-color: var(--grey);
-    box-shadow: 3px 3px var(--secondary);
-    transform: translate(-1px, -1px);
-    display: inline-block;
-    width: auto;
-    margin-top: 20px;
-    padding: 15px;
-    text-decoration: none;
-    font-size: 1.2rem;
-}
-
-.btn-back:hover {
-    color: var(--primary);
-    background-color: var(--darkblue);
-    transform: translate(0, 0);
-    box-shadow: 2px 2px var(--blue);
 }
 
 .hero {
@@ -111,6 +85,7 @@ p {
     max-width: 75%;
 }
 
+/* Text: Weather Dashboard */
 .app-title {
     font-size: 3rem;
     background-color: var(--primary);
@@ -121,6 +96,7 @@ p {
     box-shadow: 6px 5px var(--grey);
 }
 
+/* Top container with current weather */
 .today-weather-container {
     border: 3px solid var(--grey);
     border-radius: 5px;
@@ -128,12 +104,14 @@ p {
     padding: 10px;
 }
 
+/* Name of city */
 .city-header {
     font-size:  30px;
     color: black;
     line-height: 120%;
 }
 
+/* Bottom container for 5 day forecast */
 .fiveday-container {
     margin-top: 25px;
 }
@@ -143,11 +121,13 @@ p {
     color: black;
 }
 
+/* The five divs container */
 .fivedaysonly-box {
     display: flex;
 
 }
 
+/* each div for each day */
 .day-container {
     border: 3px solid white;
     border-radius: 10px;
