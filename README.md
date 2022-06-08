@@ -1,10 +1,10 @@
 # Weather Dashboard
 
 ## Website Description
-The website enables a user to search a city or select it from suggestions to display a weather forecast for the upcoming days.
+The website enables a user to search a city to display a weather forecast for the upcoming days. The user can also click a button from recent search history to repeat the search. The current weather is displayed with the five day forecast below. The UV Index is displayed in a corresponding color for severity and an icon represents the type of weather for the day. 
 
 ## Challenge Description
-The weather dashboard runs in the browser and features dynamically updated HTML and CSS. It uses OpenWeather One Call API (https://openweathermap.org/api/one-call-api) to retrieve weather data for cities. It uses localStorage to store persistent data.
+The weather dashboard runs in the browser and features dynamically updated HTML and CSS. It uses OpenWeather One Call API (https://openweathermap.org/api/one-call-api) to retrieve weather data for cities via their lattitude and longitude. Functions with parameters are used to display data from the API results. Arrays are used to populate the five day forecast as well as the localStorage. It uses localStorage to store persistent data, which in this case is recent search history populated to buttons. 
 
 
 ## User Story
@@ -35,13 +35,22 @@ THEN I am again presented with current and future conditions for that city
 The HTML document includes:
 * a proper title 
 * proper HTML semantic labelling
+* link to Font Awesome style sheet with an icon
+* submit form for user input
+* placeholder containers for recent search buttons and weather information
+* comments
 
 The CSS document includes:
 * universal, elemental, class, and id selectors
-* stylization for the header, cities list
+* stylization for the header, cities button list, current weather, and five day forecasts
 
 The JavaScript document includes:
-* 
+* universal variables with query selectors
+* api calls for current weather by city and One Api via lattitude and longitude parameters
+* recent city search button creation via appending the parent div
+* containers for current weather and five day forecast via appending the parent div
+* event listener for clicking a city button
+* saving and retrieving recent searches for button information from localStorage
 
 ## Languages
 - HTML
