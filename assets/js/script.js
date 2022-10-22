@@ -182,7 +182,7 @@ function displayFiveDayForecast(data) {
     var dayArray = [0, 1, 2, 3, 4]
     for (var i = 0; i < dayArray.length; i++) {
         var dayContainerEl = document.createElement('div');
-        dayContainerEl.classList= 'col'
+        dayContainerEl.classList= 'col day-container'
         var dateEl = document.createElement('p');  
         var iconEl = document.createElement('p');  //(data.daily[i].weather[0].main);
         var tempEl = document.createElement('p');  //(data.daily[i].temp);

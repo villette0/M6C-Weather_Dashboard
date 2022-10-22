@@ -1,6 +1,28 @@
 body {
     background-image: url('../images/mountains.jpg');
     background-size: 100vw;
+    color: white;
+}
+
+/* need to link to background image? to add class? */
+.background-image {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+button {
+    background: rgba(239, 233, 233, 0.134);
+    color: white;
+    border-color: rgba(94, 95, 96, 0.449);
+    border-width: 0px;
+    filter: drop-shadow(1px 1px 1px rgb(147, 146, 146));
+    margin: .5vw;
+    padding: 1vw 1vh;
+}
+
+.search-button {
+    border-radius: 20px;
 }
 
 .city-buttons-container {
@@ -9,4 +31,17 @@ body {
 
 .city-button {
     width: 20vw;
+    border-radius: 10px;
+}
+
+.day-container {
+    background: rgba(239, 233, 233, 0.134);
+    border-radius: 10px;
+    margin: 1vw;
+}
+
+.today-weather-container {
+    background: rgba(239, 233, 233, 0.134);
+    border-radius: 10px;
+    margin: 1vw;
 }
