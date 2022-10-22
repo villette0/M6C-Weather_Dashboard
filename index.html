@@ -11,51 +11,54 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <!-- My style sheets -->
     <link rel="stylesheet" href="./assets/css/reset.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Weather Dashboard</title>
   </head>
 
-  <body class="flex-column min-100-vh">
-    <header class="hero">
-      <h1 class="app-title">
+  <body>
+    <header>
+      <h1>
         <!-- The `<i>` element is for icons. These classes come from the Font Awesome font icon library. -->
           <i class="fa-solid fa-cloud-bolt"></i> Weather Dashboard
       </h1>
-      <p class="site-description">Search for a city to see the weather forecast!
+      <p>Search for a city to see the weather forecast!
       </p>
     </header>
   
-  
-    <main class="flex-row justify-space-between">
-      <div class="col-12 col-md-3">
-  
+    <main>
+      <div class="container">
+      <div class="row first-row">
         <!-- Search box container -->
-        <div class="card">
-          <h3 class="card-header text-uppercase">Search for a City</h3>
-          <form id="city-form" class="card-body">
+        <div class="col">
+          <h3>Search for a City</h3>
+          <form id="city-form">
             <label class="form-label" for="city">City</label>
             <input name="city" id="city" type="text" autofocus="true" class="form-input" />
-            <button type="submit" class="btn">Search</button>
+            <button type="submit">Search</button>
           </form>
         </div>
-  
+
+        <div class="col today-weather-container">
+            <!-- today's info populated here -->
+        </div>
+      </div>
+
+      <div class="row second-row">
         <!-- Search history buttons container -->
-        <div class="card">
-          <h3 class="card-header text-uppercase">Recent Searches</h3>
-          <div id="city-buttons-container" class="card-body">
+        <div class="col">
+          <h3>Recent Searches</h3>
+          <div id="city-buttons-container">
             <!-- Buttons from old searches will populate in here -->
           </div>
         </div>
-      </div>
-  
-      <!-- Weather display container -->
-      <div class="col-12 col-md-9">
-        <h2 class="subtitle">Showing Weather: <span id="city-search-term"></span></h2>
-        <div id="weather-container">
-          <!-- Information will populate in here -->
-          <!-- First a current weather div -->
-          <!-- Then a 5 day forecast div -->
+
+        <div class="col">
+          <div class="row week-weather-container">
+          <!-- week's info populated here -->
         </div>
+      </div>
+      </div>
       </div>
     </main>
   <!-- Moments link for current date -->
