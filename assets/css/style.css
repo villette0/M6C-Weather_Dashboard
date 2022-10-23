@@ -1,8 +1,9 @@
 body {
     background-image: url('../images/mountains.jpg');
     background-position: center;
-    background-repeat: repeat;
     background-size: cover;
+    background-repeat: repeat;
+    height: 100vh;
     color: white;
     font-family: 'Montserrat', sans-serif;
 }
@@ -101,14 +102,5 @@ and (min-width : 250px)
 and (max-width : 440px) {
     body {
         height: 100vh;
-    }
-    .form-input{
-        width: 100vw;
-    }
-    .search-button {
-        width: 100vw;
-    }
-    .city-button {
-        width: 100vw;
     }
 }
