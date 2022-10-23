@@ -8,6 +8,7 @@ var citySearchTerm = document.querySelector('#city-search-term');
 var APIKey = "b577339e9250e36ef369eb66eef9b999";
 var citiesArray; //for localstorage work
 
+// Initial screen load
 // Event listener to populate old search buttons from local storage
 document.addEventListener('DOMContentLoaded', loadOldSearchButtons);
 
@@ -132,6 +133,7 @@ function getCoordinates(lat, lon) {
 
 // Function to display weather just for today from One Api call
 function displayCurrentWeather(data) {
+    todayWeatherContainer.style.display = 'block';
     var tempEl = document.createElement('p');
     var windEl = document.createElement('p');
     var humidityEl = document.createElement('p');
@@ -255,6 +257,7 @@ function removeChilds(parent) {
 
 // Function for the document to load all the old search buttons and make them display the corresponding city day
 function loadOldSearchButtons() {
+    todayWeatherContainer.style.display = 'none';
     removeChilds(cityButtonsContainerEL);
     //if there are no todos in storage then make an empty array
     if (localStorage.getItem('cities') === null) {

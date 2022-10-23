@@ -2,6 +2,7 @@ body {
     background-image: url('../images/mountains.jpg');
     background-size: 100vw;
     color: white;
+    font-family: 'Montserrat', sans-serif;
 }
 
 /* need to link to background image? to add class? */
@@ -11,6 +12,12 @@ body {
     background-size: cover;
   }
 
+header h1 {
+    margin-left: 3vw;   
+    /* Gives a rounded W letter */
+    font-family: 'Montserrat Alternates', sans-serif;
+}
+
 button {
     background: rgba(239, 233, 233, 0.134);
     color: white;
@@ -18,11 +25,15 @@ button {
     border-width: 0px;
     filter: drop-shadow(1px 1px 1px rgb(147, 146, 146));
     margin: .5vw;
-    padding: 1vw 1vh;
+}
+
+.search {
+    margin-bottom: 5vh;
 }
 
 .search-button {
     border-radius: 20px;
+    padding: 1vh 1vw;
 }
 
 .city-buttons-container {
@@ -30,18 +41,21 @@ button {
 }
 
 .city-button {
+    padding: 1vw 1vh;
     width: 20vw;
     border-radius: 10px;
-}
-
-.day-container {
-    background: rgba(239, 233, 233, 0.134);
-    border-radius: 10px;
-    margin: 1vw;
 }
 
 .today-weather-container {
     background: rgba(239, 233, 233, 0.134);
     border-radius: 10px;
-    margin: 1vw;
+    margin-bottom: 3vw;
+    padding: 2vh 1vw;
+}
+
+/* For each day card of the week */
+.day-container {
+    background: rgba(239, 233, 233, 0.134);
+    border-radius: 10px;
+    margin-right: 2vw;
 }
