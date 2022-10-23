@@ -2,7 +2,7 @@ body {
     background-image: url('../images/mountains.jpg');
     background-position: center;
     background-repeat: repeat;
-    background-size: 100vh 100vw;
+    background-size: cover;
     color: white;
     font-family: 'Montserrat', sans-serif;
 }
@@ -94,4 +94,15 @@ button:hover {
     border-radius: 10px;
     margin-right: 2vw;
     margin-bottom: 2vh;
+}
+
+@media screen 
+and (min-width : 250px) 
+and (max-width : 440px) {
+    body {
+        background-size: 100vh auto;
+    }
+    .search-button {
+        width: 100vw;
+    }
 }
