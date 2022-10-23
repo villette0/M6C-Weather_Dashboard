@@ -38,7 +38,7 @@ button:hover {
 }
 
 .form-input {
-    height: 5vh;
+    height: 5.5vh;
     background: rgba(239, 233, 233, 0.134);
     color: white;
     margin-left: .3vw;
@@ -60,12 +60,14 @@ button:hover {
 }
 
 .search {
-    margin-bottom: 5vh;
+    margin-bottom: 5vh;   
 }
 
 .search-button {
-    border-radius: 20px;
+    border-radius: 0px;
     padding: 1vh 1vw;
+    margin-left: -4.5px;
+    background: rgba(81, 79, 79, 0.156);
 }
 
 .city-buttons-container {
