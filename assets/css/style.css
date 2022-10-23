@@ -105,4 +105,7 @@ and (max-width : 440px) {
     .search-button {
         width: 100vw;
     }
+    .city-button {
+        width: 100vw;
+    }
 }
