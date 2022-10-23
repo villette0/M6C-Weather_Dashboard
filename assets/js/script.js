@@ -85,7 +85,7 @@ function displayCity(data) {
     }
     ;
 
-    cityHeaderEl.textContent = data.name + " (" + (moment().format("MM/DD/YYYY")) + ") " + data.weather[0].main + icon;
+    cityHeaderEl.textContent = data.name + ",   " + (moment().format("dddd MM.DD")) + ",  " + data.weather[0].main + icon;
     cityHeaderEl.classList = 'city-header';
 
     todayWeatherContainer.appendChild(cityHeaderEl);
@@ -217,7 +217,7 @@ function displayFiveDayForecast(data) {
 
         var dayForward = "";
         var dayForwardArray = [1, 2, 3, 4, 5]
-        dayForward = moment().add((dayForwardArray[i]), 'days').format("MM/DD/YYYY");
+        dayForward = moment().add((dayForwardArray[i]), 'days').format("dddd MM.DD");
         // lookup units timestamp to convert date data from seconds as another way
 
         dateEl.textContent = dayForward;
