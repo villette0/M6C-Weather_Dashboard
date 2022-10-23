@@ -100,7 +100,10 @@ button:hover {
 and (min-width : 250px) 
 and (max-width : 440px) {
     body {
-        background-size: 100vh auto;
+        height: 100vh;
+    }
+    .form-input{
+        width: 100vw;
     }
     .search-button {
         width: 100vw;
