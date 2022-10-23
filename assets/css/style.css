@@ -103,4 +103,16 @@ and (max-width : 440px) {
     body {
         height: 100vh;
     }
+    .search-for-city{
+        margin-top: 1vh;
+    }
+    .city-button{
+        width: 30%;
+    }
+    .form-input {
+        width: 70%;
+    }
+    .today-weather-container {
+        margin-top: 1vh;
+}
 }
