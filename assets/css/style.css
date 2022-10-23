@@ -111,8 +111,14 @@ and (max-width : 440px) {
     }
     .form-input {
         width: 70%;
+        background: rgba(150, 165, 174, 0.567);
+
     }
     .today-weather-container {
         margin-top: 2vh;
-}
+        background: rgba(150, 165, 174, 0.567);
+    }
+.day-container {
+    background: rgba(150, 165, 174, 0.567);
+    }
 }
