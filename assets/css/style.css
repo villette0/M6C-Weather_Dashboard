@@ -1,7 +1,7 @@
 body {
     background-image: url('../images/mountains.jpg');
     background-position: center;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     background-size: cover;
     color: white;
     font-family: 'Montserrat', sans-serif;
@@ -12,6 +12,10 @@ header h1 {
     margin-left: 3vw;   
     /* Gives a rounded W letter */
     font-family: 'Montserrat Alternates', sans-serif;
+}
+
+.search-for-city {
+    margin-top: 3rem;
 }
 
 button {
@@ -79,7 +83,8 @@ button:hover {
 .today-weather-container {
     background: rgba(239, 233, 233, 0.134);
     border-radius: 10px;
-    margin-bottom: 3vw;
+    margin-bottom: 3vh;
+    margin-top: -10vh;
     padding: 2vh 1vw;
 }
 
