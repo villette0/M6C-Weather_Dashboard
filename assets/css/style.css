@@ -40,7 +40,7 @@ button:hover {
     height: 5.5vh;
     background: rgba(239, 233, 233, 0.134);
     color: white;
-    margin-left: .3vw;
+    padding-left: 1vw;
     border-width: 0px;
 }
 
@@ -84,8 +84,6 @@ button:hover {
     background: rgba(239, 233, 233, 0.134);
     border-radius: 10px;
     margin-bottom: 3vh;
-    margin-top: -10vh;
-    padding: 2vh 1vw;
 }
 
 /* For each day card of the week */
