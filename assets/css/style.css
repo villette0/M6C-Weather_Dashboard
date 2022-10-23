@@ -113,6 +113,6 @@ and (max-width : 440px) {
         width: 70%;
     }
     .today-weather-container {
-        margin-top: 1vh;
+        margin-top: 2vh;
 }
 }
