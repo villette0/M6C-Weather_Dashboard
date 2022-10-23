@@ -64,6 +64,7 @@ button:hover {
 }
 
 .search-button {
+    height: 5.5vh;
     border-radius: 0px;
     padding: 1vh 1vw;
     margin-left: -4.5px;
