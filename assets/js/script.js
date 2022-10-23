@@ -137,44 +137,36 @@ function displayCurrentWeather(data) {
     var tempEl = document.createElement('p');
     var windEl = document.createElement('p');
     var humidityEl = document.createElement('p');
-    var uvIndexEl = document.createElement('p');
 
     tempEl.textContent = "Temperature: " + data.current.temp + " °F";;
     windEl.textContent = "Wind: " + data.current.wind_speed + " MPH";
     humidityEl.textContent = "Humidity: " + data.current.humidity + " %";
-    uvIndexEl.textContent = "UV Index: " + data.current.uvi;
 
-    uvIndexEl.classList = 'uv-index'
 
     todayWeatherContainer.appendChild(tempEl);
     todayWeatherContainer.appendChild(windEl);
     todayWeatherContainer.appendChild(humidityEl);
-    todayWeatherContainer.appendChild(uvIndexEl);
-    changeUviColor(data);
+    makeUviWithColor(data);
 };
 
 // Function just for changing UVI color based on number's severity
-function changeUviColor(data) {
-    var uvIndexEl = document.querySelector('.uv-index');
+function makeUviWithColor(data) {
+    var uvIndex = document.createElement('p');
+    uvIndex.classList = 'uv-index'
     var uvi = data.current.uvi;
     // Low UV
     if (uvi < 3) {
-        uvIndexEl.style.backgroundColor = 'green';
-        uvIndexEl.style.color = "white";
-        uvIndexEl.style.width = "10rem";
+        uvIndex.textContent = "UV Index: " + data.current.uvi + " 🟢";
     }
     // Moderate UV
     if (uvi > 2 && uvi < 6) {
-        uvIndexEl.style.backgroundColor = 'yellow';
-        uvIndexEl.style.color = "black";
-        uvIndexEl.style.width = "10rem";
+        uvIndex.textContent = "UV Index: " + data.current.uvi + " 🟡";
     }
     // High UV
     if (uvi > 5) {
-        uvIndexEl.style.backgroundColor = 'red';
-        uvIndexEl.style.color = "white";
-        uvIndexEl.style.width = "10rem";
+        uvIndex.textContent = "UV Index: " + data.current.uvi + " 🔴";
     }
+    todayWeatherContainer.appendChild(uvIndex);
 }
 
 // Function to display Five Day Forecast div
