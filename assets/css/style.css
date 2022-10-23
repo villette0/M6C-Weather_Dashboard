@@ -2,7 +2,7 @@ body {
     background-image: url('../images/mountains.jpg');
     background-position: center;
     background-repeat: repeat;
-    background-size: cover;
+    background-size: 100vh 100vw;
     color: white;
     font-family: 'Montserrat', sans-serif;
 }
