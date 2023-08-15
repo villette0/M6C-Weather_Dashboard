@@ -61,14 +61,9 @@ The JavaScript document includes:
 - JavaScript
 
 ## Links
-* [Deployed webpage](https://villettec.github.io/M6C-Weather_Dashboard/)
+* [Deployed webpage](https://villette0.github.io/M6C-Weather_Dashboard/)
 
-* [Repository](https://github.com/villettec/M6C-Weather_Dashboard)
+* [Repository](https://github.com/villette0/M6C-Weather_Dashboard)
 
 ## Screenshot
 ![image](./assets/images/readme-screenshot.png)
-
-## Credit
-Villette Comfort
-
-villette@live.com
